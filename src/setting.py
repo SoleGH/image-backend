@@ -24,7 +24,7 @@ else:
 
 class Setting:
     debug = conf.get('DEBUG', False)
-    flask_secret_key = conf.get('FLASK_SECRET_KEY', 'sales-backend')
+    flask_secret_key = conf.get('FLASK_SECRET_KEY', 'image-backend')
     server_port = conf.get('SERVER_PORT', 5000)
     # MYSQL
     mysql_host = conf.get('MYSQL_HOST', '127.0.0.1')
@@ -34,6 +34,6 @@ class Setting:
     oss_access_id = conf.get('OSS_ACCESS_ID', '')
     oss_access_secret = conf.get('OSS_ACCESS_SECRET', '')
     # 统计任务时间间隔（天），默认1天
-    statistics_interval_days = conf.get('STATISTICS_INTERVAL_DAYS', 1)
+    wanxiang_api_key = conf.get('WANXIANG_API_KEY', '')
 
 settings = Setting()

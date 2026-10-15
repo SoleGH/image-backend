@@ -11,5 +11,16 @@
             "program": "${workspaceFolder}/src/app.py",
             "console": "integratedTerminal"
         },
+        {
+            "name": "run TestWanxiang",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "unittest",
+            "args": [
+                "test.TestWanxiang.test_re_image"
+            ],
+            "cwd": "${workspaceFolder}/src",
+            "console": "integratedTerminal"
+        }
     ]
 }

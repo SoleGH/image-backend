@@ -34,7 +34,7 @@ class Image(PathViewV1):
             return {"status": "error", 'message': '无法识别当前图片'}
         # 保存文件
         uploaded_file.seek(0)  # 重置到文件开头
-        obj = File.add_prod_img(content=uploaded_file.read(), ext=ext, org_id=self.current_user.org_id)
+        obj = File.add_file(content=uploaded_file.read(), ext=ext)
         db.session.commit()
         return {'status': 'status', "id": obj.id, "url": oss_client.sign_url(obj.path), "name": obj.path.split("/")[-1]}
 
@@ -52,17 +52,17 @@ class Image(PathViewV1):
 class ImagePreview(PathViewV1):
     """访问图片"""
     _path = "/api/v1/img/<img_id>"
-    REQUIRED_PERMISSIONS = [PermissionBase.LOGIN]
+    REQUIRED_PERMISSIONS = []
 
     def post(self, img_id):
-        img = File.query.filter(File.id==img_id, File.org_id==self.current_user.org_id).first()
+        img = File.query.filter(File.id==img_id).first()
         if not img:
             return {"status": "error", 'message': '图片不存在'}
 
         return redirect(oss_client.sign_url(img.path))
 
     def delete(self, img_id):
-        img = File.query.filter(File.id == img_id, File.org_id == self.current_user.org_id).first()
+        img = File.query.filter(File.id == img_id).first()
         if not img:
             return {'status': 'success'}
         oss_client.delete_object(img.path)
